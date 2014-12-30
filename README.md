@@ -99,7 +99,7 @@ The first non-comment line of most Java source files is a `package` statement.
 
 #### 3.2.1 No line-wrapping
  
-The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#421-Line-length) does not apply to package statements.
+The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to package statements.
 
 ### 3.3 Import statements
 
@@ -109,7 +109,7 @@ The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#42
 
 #### 3.3.2 No line-wrapping
 
-The `import` statement is not line-wrapped. The [section 4.2.1 Line length](#421-Line-length) does not apply to package statements.
+The `import` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to package statements.
 
 #### 3.3.3 Ordering and spacing
 
@@ -211,7 +211,7 @@ int f(int x, int y) {
 
 #### 4.2.1 Line length
 
-Avoid lines longer than 120 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in [Section 4.2.2 Wrapping lines](#422-Wrapping-lines).
+Avoid lines longer than 120 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in [Section 4.2.2 Wrapping lines](#422-wrapping-lines).
 
 #### 4.2.2 Wrapping lines
 
@@ -405,7 +405,7 @@ A single blank line appears:
 2. Within method bodies, as needed to create logical groupings of statements.
 3. Between `switch` cases, see [Section 4.6.8 `switch` statements](#468-switch-statements).
 4. Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
-5. As required by other sections of this document, such as [Section 3.3 Import statements](#33-Import-statements).
+5. As required by other sections of this document, such as [Section 3.3 Import statements](#33-import-statements).
 
 Multiple consecutive blank lines are permitted, but never required (or encouraged).
 
@@ -813,7 +813,7 @@ com.kakawait.service
 
 #### 5.2.2 Class names
 
-Class names are written in [UpperCamelCase](#53-Camel-case).
+Class names are written in [UpperCamelCase](#53-camel-case).
 
 Class names are typically nouns or noun phrases. For example, `Character` or `ImmutableList`. Interface names may also be nouns or noun phrases (for example, `List`), but may sometimes be adjectives or adjective phrases instead (for example, `Readable`).
 
@@ -823,7 +823,7 @@ Test classes are named starting with the name of the class they are testing, and
 
 #### 5.2.3 Method names
 
-Method names are written in [lowerCamelCase](#53-Camel-case).
+Method names are written in [lowerCamelCase](#53-camel-case).
 
 Method names are typically verbs or verb phrases. For example, `sendMessage` or `stop`.
 
@@ -856,13 +856,13 @@ These names are typically nouns or noun phrases.
 
 #### 5.2.5 Non-constant field names
 
-Non-constant field names (static or otherwise) are written in [lowerCamelCase](#53-Camel-case).
+Non-constant field names (static or otherwise) are written in [lowerCamelCase](#53-camel-case).
 
 These names are typically nouns or noun phrases. For example, `computedValues` or `index`.
 
 #### 5.2.6 Parameter names
 
-Parameter names are written in [lowerCamelCase](#53-Camel-case).
+Parameter names are written in [lowerCamelCase](#53-camel-case).
 
 One-character parameter names should be avoided.
 
