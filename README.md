@@ -205,7 +205,7 @@ The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#42
 
 #### 3.3.2 No line-wrapping
 
-The `import` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to package statements.
+The `import` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to import statements.
 
 #### 3.3.3 Ordering and spacing
 
