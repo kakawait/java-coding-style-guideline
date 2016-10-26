@@ -1,7 +1,7 @@
 Java Coding Style Guideline
 ===========================
 
-**Version:** 1.0
+**Version:** 2.0
 
 **Author:** Thibaud LEPRETRE
 
@@ -152,6 +152,10 @@ Source files are encoded in **UTF-8**.
 
 #### 2.4.1 Whitespace characters
 
+Aside from the line terminator sequence, the **ASCII horizontal space character (`0x20`)** is the only whitespace character that appears anywhere in a source file. This implies that:
+
+1. All other whitespace characters in string and character literals are escaped.
+2. Tab characters are not used for indentation.
 
 #### 2.4.2 Special escape sequences
 
@@ -161,7 +165,7 @@ For any character that has a special escape sequence (`\b`, `\t`, `\n`, `\f`, `\
 
 For the remaining non-ASCII characters, either the actual Unicode character (e.g. `∞`) or the equivalent Unicode escape (e.g. `\u221e`) is used, depending only on which makes the code easier to read and understand.
 
-> Tip: in the Unicode escape case, and occasionally even when actual Unicode characters are used, an explanatory comment can be very helpful.
+> **Tip:** in the Unicode escape case, and occasionally even when actual Unicode characters are used, an explanatory comment can be very helpful.
 
 Example | Discussion
 ------- | ---------
@@ -171,7 +175,7 @@ Example | Discussion
 `String unitAbbrev = "\u03bcs";` | **Poor**: the reader has no idea what this is.
 `return '\ufeff' + content; // byte order mark` | **Good**: use escapes for non-printable characters, and comment if necessary.
 
-> Tip:  Never make your code less readable simply out of fear that some programs might not handle non-ASCII characters properly. If that should happen, those programs are broken and they must be fixed.
+> **Tip:**  Never make your code less readable simply out of fear that some programs might not handle non-ASCII characters properly. If that should happen, those programs are **broken** and they must be **fixed**.
 
 3 Source file structure
 -----------------------
@@ -183,7 +187,7 @@ A source file consists of, in order:
 3. Import statements
 4. Exactly one top-level class
 
-**Exactly one blank line separates each section that is present.**
+**Exactly one blank line separates** each section that is present.
 
 ### 3.1 License or copyright information
 
@@ -195,7 +199,7 @@ The first non-comment line of most Java source files is a `package` statement.
 
 #### 3.2.1 No line-wrapping
  
-The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to package statements.
+The `package` statement is **not line-wrapped**. The [section 4.2.1 Line length](#421-line-length) does not apply to package statements.
 
 ### 3.3 Import statements
 
@@ -205,7 +209,7 @@ The `package` statement is not line-wrapped. The [section 4.2.1 Line length](#42
 
 #### 3.3.2 No line-wrapping
 
-The `import` statement is not line-wrapped. The [section 4.2.1 Line length](#421-line-length) does not apply to import statements.
+The `import` statement is not **line-wrapped**. The [section 4.2.1 Line length](#421-line-length) does not apply to import statements.
 
 #### 3.3.3 Ordering and spacing
 
@@ -222,7 +226,7 @@ Within a group there are no blank lines, and the imported names appear in ASCII 
 
 Example:
 
-~~~java
+```java
 package com.kakawait.service.auth.adapter;
 
 import com.kakawait.service.AuthenticationService;
@@ -239,7 +243,7 @@ import java.io.InputStream;
 import javax.net.ssl.SSLPeerUnverifiedException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-~~~
+```
 
 ### 3.4 Class and Interface declaration
 
@@ -251,7 +255,7 @@ Each top-level class resides in a source file of its own.
 
 The ordering of the members of a class can have a great effect on learnability, but there is no single correct recipe for how to do it. Different classes may order their members differently.
 
-What is important is that each class order its members in **some logical order**, which its maintainer could explain if asked. For example, new methods are not just habitually added to the end of the class, as that would yield "chronological by date added" ordering, which is not a logical ordering.
+What is important is that each class order its members in ***some* logical order**, which its maintainer could explain if asked. For example, new methods are not just habitually added to the end of the class, as that would yield "chronological by date added" ordering, which is not a logical ordering.
 
 You can optionally adopt the following arrangement (which place public method before all other to separate API from implementation):
 
@@ -293,11 +297,11 @@ Use 4 spaces for expressing the indentation level and for alignment.
 
 Example using indentation equals to four spaces:
 
-~~~java
+```java
 int f(int x, int y) {
 ....return g(x, y);
 }
-~~~
+```
 
 #### 4.1.2 Why not using tabs/smartab?
 
@@ -308,6 +312,12 @@ int f(int x, int y) {
 #### 4.2.1 Line length
 
 Avoid lines longer than 120 characters. Except as noted below, any line that would exceed this limit must be line-wrapped, as explained in [Section 4.2.2 Wrapping lines](#422-wrapping-lines).
+
+**Exceptions:**
+
+1. Lines where obeying the column limit is not possible (for example, a long URL in Javadoc, or a long JSNI method reference).
+2. `package` and `import` statements (see [Section 3.2 Package statement](#32-package-statement) and [Section 3.3 Import statements](#33-import-statements)).
+3. Command lines in a comment that may be cut-and-pasted into a shell.
 
 #### 4.2.2 Wrapping lines
 
@@ -325,11 +335,11 @@ General principles can be used:
 * Align the new line with the beginning of the expression at the same level on the previous line.
 * If the above rules lead to confusing code or to code that's squished up against the right margin, just indent two times instead.
 
-> Tip: extracting a method or local variable may solve the problem without the need to line-wrap.
+> **Tip:** extracting a method or local variable may solve the problem without the need to line-wrap.
 
 Here are some examples of breaking method calls:
 
-~~~java
+```java
 // AVOID
 someMethod(longExpression1, longExpression2, longExpression3
            , longExpression4, longExpression5);
@@ -341,11 +351,11 @@ someMethod(longExpression1, longExpression2, longExpression3,
 // ALLOWED
 someMethod(longExpression1, longExpression2, longExpression3, 
            longExpression4, longExpression5);
-~~~
+```
 
 Following are two examples of breaking an arithmetic expression. The first is preferred, since the break occurs outside the parenthesized expression, which is at a higher level.
 
-~~~java
+```java
 // AVOID
 longName1 = longName2 * (longName3 + longName4
             - longName5) + 4 * longname6;
@@ -353,11 +363,11 @@ longName1 = longName2 * (longName3 + longName4
 // PREFER
 longName1 = longName2 * (longName3 + longName4 - longName5)
             + 4 * longname6;
-~~~
+```
 
 Following are two examples of indenting method declarations. The first is the conventional case. The second would shift the second and third lines to the far right if it used conventional indentation, so instead it indents only 8 spaces.
 
-~~~java
+```java
 // CONVENTIONAL INDENTATION
 someMethod(int anArg, Object anotherArg, String yetAnotherArg,
            Object andStillAnother) {
@@ -370,11 +380,11 @@ private static synchronized horkingLongMethodName(int anArg,
         Object andStillAnother) {
     ...
 }
-~~~
+```
 
 Line wrapping for if statements should generally use the 2 tabs rule, since conventional (1 tab) indentation makes seeing the body difficult. For example:
 
-~~~java
+```java
 // AVOID
 if ((condition1 && condition2)
     || (condition3 && condition4)
@@ -394,11 +404,11 @@ if ((condition1 && condition2) || (condition3 && condition4)
         || !(condition5 && condition6)) {
     doSomethingAboutIt();
 }
-~~~
+```
 
 Here are three acceptable ways to format ternary expressions:
 
-~~~java
+```java
 alpha = (aLongBooleanExpression) ? beta : gamma;  
 
 alpha = (aLongBooleanExpression) ? beta
@@ -407,22 +417,28 @@ alpha = (aLongBooleanExpression) ? beta
 alpha = (aLongBooleanExpression)
         ? beta 
         : gamma;
-~~~
+```
 
 ### 4.3 Braces
 
 #### 4.3.1 Nonempty blocks
  
-Braces follow the *Kernighan and Ritchie* style (*Egyptian brackets*) for nonempty blocks and block-like constructs:
+Braces follow the *Kernighan and Ritchie* style (*Egyptian brackets*) for *nonempty* blocks and block-like constructs:
 
 * No line break before the opening brace.
 * Line break after the opening brace.
 * Line break before the closing brace.
-* Line break after the closing brace if that brace terminates a statement or the body of a method, constructor or named class. For example, there is no line break after the brace if it is followed by `else` or a comma.
+* Line break after the closing brace if that brace terminates a statement or the body of a method, constructor or *named* class. For example, there is no line break after the brace if it is followed by `else` or a comma.
 
 Example:
 
-~~~java
+```java
+return () -> {
+  while (condition()) {
+    method();
+  }
+};
+
 return new MyClass() {
     @Override 
     public void method() {
@@ -432,10 +448,14 @@ return new MyClass() {
             } catch (ProblemException e) {
                 recover();
             }
+        } else if (otherCondition()) {
+            somethingElse();
+        } else {
+            lastThing();
         }
     }
 };
-~~~
+```
 
 #### 4.3.2 Empty blocks
 
@@ -443,11 +463,7 @@ An empty block or block-like construct may be closed immediately after it is ope
 
 Example:
 
-~~~java
-// AVOID
-void doNothing() {
-}
-
+```java
 // AVOID
 void doNothing() {
 
@@ -457,13 +473,17 @@ void doNothing() {
 void doNothing()
 {}
 
+// ALLOWED
+void doNothing() {
+}
+
 // PREFER
 void doNothing() {}
-~~~
+```
 
 For multi-block statement:
 
-~~~java
+```java
 // AVOID
 if (test) {
     ...
@@ -488,7 +508,7 @@ if (test) {
 } else {
     // Add comment to explain why the block is empty
 }
-~~~
+```
 
 ### 4.4 Whitespace
 
@@ -497,13 +517,14 @@ if (test) {
 A single blank line appears:
 
 1. Between consecutive members (or initializers) of a class: fields, constructors, methods, nested classes, static initializers, instance initializers.
-    * Exception: a blank line between two consecutive fields (having no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
-2. Within method bodies, as needed to create logical groupings of statements.
+    * **Exception**: a blank line between two consecutive fields (having no other code between them) is optional. Such blank lines are used as needed to create logical groupings of fields.
+    * **Exception**: Blank lines between enum constants are covered in [Section 4.7.1 Enum classes](#471-enum-classes).
+2. Between statements, as *needed* to organize the code into logical subsections.
 3. Between `switch` cases, see [Section 4.6.8 `switch` statements](#468-switch-statements).
 4. Optionally before the first member or after the last member of the class (neither encouraged nor discouraged).
 5. As required by other sections of this document, such as [Section 3.3 Import statements](#33-import-statements).
 
-Multiple consecutive blank lines are permitted, but never required (or encouraged).
+*Multiple* consecutive blank lines are permitted, but never required (or encouraged).
 
 #### 4.4.2 Horizontal whitespace
 
@@ -517,14 +538,18 @@ Beyond where required by the language or other style rules, and apart from liter
 4. On both sides of any binary or ternary operator. This also applies to the following "operator-like" symbols:
     * the ampersand in a conjunctive type bound: `<T extends Foo & Bar>`
     * the pipe for a catch block that handles multiple exceptions: `catch (FooException | BarException e)`
-    * the colon (:) in an enhanced `for` ("foreach") statement
+    * the colon (`:`) in an enhanced `for` ("foreach") statement
+    * the arrow in a lambda expression: `(String str) -> str.length()`
+  but not
+    * the two colons (`::`) of a method reference, which is written like `Object::toString`
+    * the dot separator (`.`), which is written like `object.toString()`
 5. After `,:;` or the closing parenthesis (`)`) of a cast
 6. On both sides of the double slash (`//`) that begins an end-of-line comment. Here, multiple spaces are allowed, but not required.
 7. Between the type and variable of a declaration: `List<String> list`
 8. *Optional* just inside both braces of an array initializer
     * `new int[] {5, 6}` and `new int[] { 5, 6 }` are both valid
 
-> This rule never requires or forbids additional space at the start or end of a line, only interior space.
+This rule never requires or forbids additional space at the start or end of a line; it addresses only *interior* space.
 
 #### 4.4.3 Horizontal alignment
 
@@ -532,15 +557,15 @@ This practice is permitted, but is **never required**. It is not even required t
 
 Here is an example without alignment, then using alignment:
 
-~~~java
+```java
 private int x; // this is fine
 private Color color; // this too
 
 private int   x;      // permitted, but future edits
 private Color color;  // may leave it unaligned
-~~~
+```
 
-> Tip: Alignment can aid readability, but it creates problems for future maintenance. Consider a future change that needs to touch just one line. This change may leave the formerly-pleasing formatting mangled, and that is allowed. More often it prompts the coder (perhaps you) to adjust whitespace on nearby lines as well, possibly triggering a cascading series of reformattings. That one-line change now has a "blast radius." This can at worst result in pointless busywork, but at best it still corrupts version history information, slows down reviewers and exacerbates merge conflicts.
+> **Tip:** Alignment can aid readability, but it creates problems for future maintenance. Consider a future change that needs to touch just one line. This change may leave the formerly-pleasing formatting mangled, and that is **allowed**. More often it prompts the coder (perhaps you) to adjust whitespace on nearby lines as well, possibly triggering a cascading series of reformattings. That one-line change now has a "blast radius." This can at worst result in pointless busywork, but at best it still corrupts version history information, slows down reviewers and exacerbates merge conflicts.
 
 ### 4.5 Declarations
 
@@ -563,7 +588,7 @@ When coding Java classes and interfaces, the following formatting rules should b
 * Closing brace (`}`) starts a line by itself indented to match its corresponding opening statement, except when it is a null statement the (`}`) should appear immediately after the (`{`).
 * Methods are separated by a blank line.
 
-~~~java
+```java
 class Sample extends Object {
     int ivar1;
     int ivar2;
@@ -576,7 +601,7 @@ class Sample extends Object {
     int emptyMethod() {}
     ...
 }
-~~~
+```
 
 ### 4.6 Statements
 
@@ -584,11 +609,11 @@ class Sample extends Object {
 
 Each line should contain at most one statement. Example:
 
-~~~java
+```java
 argv++;         // CORRECT
 argc++;         // CORRECT
 argv++; argc--; // AVOID
-~~~
+```
 
 #### 4.6.2 Compound statements 
 
@@ -602,17 +627,17 @@ Compound statements are statements that contain lists of statements enclosed in 
 
 A returnstatement with a value should not use parentheses unless they make the return value more obvious in some way. Example:
 
-~~~java
+```java
 return;
 return myDisk.size();
 return (size ? size : defaultSize);
-~~~
+```
 
 #### 4.6.4 `if`, `if-else`, `if else-if else` statements
 
 The `if-else` class of statements should have the following form:
 
-~~~java
+```java
 // if
 if (condition) {
     statements;
@@ -633,21 +658,21 @@ if (condition) {
 } else {
     statements;
 }
-~~~
+```
 
 > Note: if statements always use braces `{}`. Avoid the following error-prone form:
 
-~~~java
+```java
 //AVOID! THIS OMITS THE BRACES {}!
 if (condition)
     statement;
-~~~
+```
 
 #### 4.6.5 `for` statements
 
 A `for` statement should have the following forms:
 
-~~~java
+```java
 // Standard
 for (initialization; condition; update) {
     statements;
@@ -657,47 +682,47 @@ for (initialization; condition; update) {
 for (variable : collection) {
     statements;
 }
-~~~
+```
 
 When using the comma operator in the *initialization* or *update* clause of aforstatement, avoid the complexity of using more than three variables. If needed, use separate statements before the `for` loop (for the *initialization* clause) or at the end of the loop (for the *update* clause).
 
 An empty `for` statement (one in which all the work is done in the *initialization*, *condition*, and *update* clauses) should have the following form:
 
-~~~java
+```java
 for (initialization; condition; update);
-~~~
+```
 
 #### 4.6.6 `while` statements
 
 A `while` statement should have the following form:
 
-~~~java
+```java
 while (condition) {
     statements;
 }
-~~~
+```
 
 An empty `while` statement should have the following form:
 
-~~~java
+```java
 while (condition);
-~~~
+```
 
 #### 4.6.7 `do-while` statements
 
 A `do-while` statement should have the following form:
 
-~~~java
+```java
 do {
     statements;
 } while (condition);
-~~~
+```
 
 #### 4.6.8 `switch` statements
 
 A `switch` statement should have the following form:
 
-~~~java
+```java
 switch (condition) {
     case ABC:
         statements;
@@ -712,11 +737,11 @@ switch (condition) {
         statements;
         break;
 }
-~~~
+```
 
 Vertical whitespaces are allowed:
 
-~~~java
+```java
 switch (condition) {
     case ABC:
         statements;
@@ -734,7 +759,7 @@ switch (condition) {
         statements;
         break;
 }
-~~~
+```
 
 ##### 4.6.8.1 Indentation
 
@@ -754,7 +779,7 @@ Every `switch` statement should include a `default` case. The `break` in the `de
 
 A `try-catch` statement should have the following forms:
 
-~~~java
+```java
 try {
     statements;
 } catch (ExceptionClass e) {
@@ -764,11 +789,11 @@ try {
 try (resource) {
     statements;
 }
-~~~
+```
 
 A `try-catch` statement may has multiple redundant `catch` clause:
 
-~~~java
+```java
 // AVOID
 try {
     statements;
@@ -784,11 +809,11 @@ try {
 } catch (ExceptionClass | OtherExceptionClass e) {
     logger.error(e.getMessage(), e);
 }
-~~~
+```
 
 A `try-catch` statement may also be followed by `finally`, which executes regardless of whether or not the `try` block has completed successfully
 
-~~~java
+```java
 try {
     statements;
 } catch (ExceptionClass e) {
@@ -796,19 +821,32 @@ try {
 } finally {
     statements;
 }
-~~~
+```
 
 ### 4.7 Specific constructs
 
 #### 4.7.1 Enum classes
 
-After each comma that follows an enum constant, a line-break is optional.
+After each comma that follows an enum constant, a line-break is optional. Additional blank lines (usually just one) are also allowed. This is one possibility:
+
+```java
+private enum Answer {
+  YES {
+      @Override public String toString() {
+          return "yes";
+      }
+  },
+
+  NO,
+  MAYBE
+}
+```
 
 An `enum` class with no methods and no documentation on its constants may optionally be formatted as if it were an array initializer (see [Section 4.7.3.1 Array initializers](#4731-Array-initializers)).
 
-~~~java
+```java
 private enum Suit { CLUBS, HEARTS, SPADES, DIAMONDS }
-~~~
+```
 
 Since `enum` classes are classes, all other rules for formatting classes apply [Section 4.5.2 Classes and Interfaces](#452-Classes-and-Interfaces).
 
@@ -816,17 +854,17 @@ Since `enum` classes are classes, all other rules for formatting classes apply [
 
 Annotations applying to a class, method or constructor appear immediately after the documentation block, and each annotation is listed on a line of its own (that is, one annotation per line). Example:
 
-~~~java
+```java
 @Override
 @Nullable
 public String getNameIfPresent() { ... }
-~~~
+```
 
 **Exception**: A single parameterless annotation may instead appear together with the first line of the signature, for example:
 
-~~~java
+```java
 @Override public int hashCode() { ... }
-~~~
+```
 
 There are no specific rules for formatting parameter and local variable annotations.
 
@@ -836,7 +874,7 @@ There are no specific rules for formatting parameter and local variable annotati
 
 Any array initializer may optionally be formatted as if it were a "block-like construct." For example, the following are all valid (**not** an exhaustive list):
 
-~~~java
+```java
 new int[] {           new int[] {
     0, 1, 2, 3            0,
 }                         1,
@@ -846,7 +884,7 @@ new int[] {               3,
     2, 3
 }                     new int[]
                           {0, 1, 2, 3}
-~~~
+```
 
 ##### 4.7.3.2 No C-style array declarations
 
@@ -856,24 +894,24 @@ The square brackets form a part of the *type*, not the variable: `String[] args`
 
 Block comments are indented at the same level as the surrounding code. They may be in `/* ... */` style or `// ...` style. For multi-line `/* ... */` comments, subsequent lines must start with `*` aligned with the * on the previous line.
 
-~~~java
+```java
 /*
  * This is          // And so
  * okay.            // is this.
  */
-~~~
+```
 
 Comments are not enclosed in boxes drawn with asterisks or other characters.
 
-> Tip: When writing multi-line comments, use the `/* ... */` style if you want automatic code formatters to re-wrap the lines when necessary (paragraph-style). Most formatters don't re-wrap lines in `// ...` style comment blocks.
+> **Tip:** When writing multi-line comments, use the `/* ... */` style if you want automatic code formatters to re-wrap the lines when necessary (paragraph-style). Most formatters don't re-wrap lines in `// ...` style comment blocks.
 
 #### 4.8 Modifiers
 
 Class and member modifiers, when present, appear in the order recommended by the Java Language Specification:
 
-~~~java
-public protected private abstract static final transient volatile synchronized native strictfp
-~~~
+```java
+public protected private abstract default static final transient volatile synchronized native strictfp
+```
 
 #### 4.9 Numeric Literals
 
@@ -890,7 +928,9 @@ Declaring in javadoc is recommended if possible.
 
 ### 5.1 Common to all identifiers 
 
-Only ASCII letters and digits (and in two cases, noted below, underscores). Identifier name have to match with the regexp `\w+`
+Only ASCII letters and digits (and in two cases, noted below, underscores). Identifier name have to match with the regexp `\w+`.
+
+Special prefixes or suffixes, like those seen in the examples `name_`, `mName`, `s_name` and `kName`, are **not** used
 
 ### 5.2 By indentifier type
 
@@ -900,12 +940,12 @@ The prefix of a unique package name is always written in all-lowercase ASCII let
 
 Package names are all lowercase, with consecutive words simply concatenated together (no underscores). For example,
 
-~~~java 
+```java 
 // AVOID 
 COM.kakawait.Service
 // GOOD
 com.kakawait.service
-~~~
+```
 
 #### 5.2.2 Class names
 
@@ -931,7 +971,7 @@ Constant names use `CONSTANT_CASE`: all uppercase letters, with words separated 
 
 Every constant is a static final field, but not all static final fields are constants. Before choosing constant case, consider whether the field really *feels like* a constant. For example, if any of that instance's observable state can change, it is almost certainly not a constant. Merely intending to never mutate the object is generally not enough. Examples
 
-~~~java
+```java
 // Constants
 static final int NUMBER = 5;
 static final ImmutableList<String> NAMES = ImmutableList.of("Ed", "Ann");
@@ -946,7 +986,7 @@ static final Set<String> mutableCollection = new HashSet<String>();
 static final ImmutableSet<SomeMutableType> mutableElements = ImmutableSet.of(mutable);
 static final Logger logger = Logger.getLogger(MyClass.getName());
 static final String[] nonEmptyArray = {"these", "can", "change"};
-~~~
+```
 
 These names are typically nouns or noun phrases.
 
@@ -1016,105 +1056,105 @@ One example of appropriate public instance variables is the case where the class
 
 When a reference to a static class member must be qualified, it is qualified with that class's name, not with a reference or expression of that class's type.
 
-~~~java
+```java
 Foo aFoo = ...;
 Foo.aStaticMethod(); // good
 aFoo.aStaticMethod(); // bad
 somethingThatYieldsAFoo().aStaticMethod(); // very bad
-~~~
+```
 
 ### 6.3 Variable Assignments
 
 Avoid assigning several variables to the same value in a single statement. It is hard to read. Example:
 
-~~~java
+```java
 fooBar.fChar = barFoo.lchar = 'c'; // AVOID!
-~~~
+```
 
 Do not use the assignment operator in a place where it can be easily confused with the equality operator. Example:
 
-~~~java
+```java
 // AVOID
 if (c++ = d++) {
     ...
 }
-~~~
+```
 
 should be written as
 
-~~~java
+```java
 if ((c++ = d++) != 0) {
     ...
 }
-~~~
+```
 
 Do not use embedded assignments in an attempt to improve run-time performance. This is the job of the compiler. Example:
 
-~~~java
+```java
 // AVOID
 d = (a = b + c) + r;
-~~~
+```
 
 should be written as
  
-~~~java
+```java
 a = b + c;
 d = a + r;
-~~~
+```
 
 ### 6.4 Grouping parentheses
 
 It is generally a good idea to use parentheses liberally in expressions involving mixed operators to avoid operator precedence problems. Even if the operator precedence seems clear to you, it might not be to others—you shouldn’t assume that other programmers know precedence as well as you do.
 
-~~~java
+```java
 // AVOID
 if (a == b && c == d)
 
 // PREFER
 if ((a == b) && (c == d))
-~~~
+```
 
 ### 6.5 Returning Values
 
 Try to make the structure of your program match the intent. Example:
 
-~~~java
+```java
 if (booleanExpression) {
     return true;
 } else {
     return false;
 }
-~~~
+```
 
 should instead be written as
 
-~~~java
+```java
 return booleanExpression;
-~~~
+```
 
 Similarly,
 
-~~~java
+```java
 if (condition) {
     return x;
 }
 return y;
-~~~
+```
 
 should be written as
 
-~~~java
+```java
 return (condition ? x : y);
-~~~
+```
 
 ### 6.6 Expressions before '?' in the Conditional Operator
 
 If an expression containing a binary operator appears before the `?` in the ternary `?`: operator, it
 should be parenthesized. Example:
 
-~~~java
+```java
 (x >= 0) ? x : -x;
-~~~ 
+``` 
 
 ### 6.7 @Override: always used
 
@@ -1128,7 +1168,7 @@ Except as noted below, it is very rarely correct to do nothing in response to a 
 
 When it truly is appropriate to take no action whatsoever in a catch block, the reason this is justified is explained in a comment.
 
-~~~java
+```java
 try {
     int i = Integer.parseInt(response);
     return handleNumericResponse(i);
@@ -1137,7 +1177,7 @@ try {
 }
 
 return handleTextResponse(response);
-~~~
+```
 
 7 Javadoc
 --------
@@ -1148,19 +1188,19 @@ return handleTextResponse(response);
 
 The *basic* formatting of Javadoc blocks is as seen in this example:
 
-~~~java
+```java
 /**
  * Multiple lines of Javadoc text are written here,
  * wrapped normally...
  */
 public int method(String p1) { ... }
-~~~
+```
 
 ... or in this single-line example:
 
-~~~java
+```java
 /** An especially short bit of Javadoc. */
-~~~
+```
 
 The basic form is always acceptable. The single-line form may be substituted when there are no at-clauses present, and the entirety of the Javadoc block (including comment markers) can fit on a single line.
 
